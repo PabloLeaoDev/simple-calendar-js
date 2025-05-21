@@ -1,31 +1,41 @@
 let currentMonth = document.querySelector('.current-month'),
     calendarDays = document.querySelector('.calendar-days'),
     today = new Date(),
-    date = new Date();
+    date = new Date(),
+    auxDate;
 
-const localeDateConfig = { 
-    restDateConfig: { month: 'long', year: 'numeric' },
-    langs: {
-        enUS: 'en-US',
-        ptBr: {
-            January: 'Janeiro',
-            February: 'Fevereiro',
-            March: 'Março',
-            April: 'Abril',
-            May: 'Maio',
-            June: 'Junho',
-            July: 'Julho',
-            August: 'Agosto',
-            September: 'Setembro',
-            October: 'Outubro',
-            November: 'Novembro',
-            December: 'Dezembro'
-        } 
-    }
-};
+function changeMonthLang(date = new Date(), lang = 'ptBr') {
+    const localeDateConfig = { 
+        restDateConfig: { month: 'long', year: 'numeric' },
+        langs: {
+            enUS: 'en-US',
+            ptBr: {
+                January: 'Janeiro',
+                February: 'Fevereiro',
+                March: 'Março',
+                April: 'Abril',
+                May: 'Maio',
+                June: 'Junho',
+                July: 'Julho',
+                August: 'Agosto',
+                September: 'Setembro',
+                October: 'Outubro',
+                November: 'Novembro',
+                December: 'Dezembro'
+            } 
+        }
+    };
 
-const localeDate = '';
-currentMonth.textContent = date.toLocaleDateString(localeDateConfig.langs.enUS, localeDateConfig.restDateConfig);
+    const localeDateMonth = date.toLocaleDateString(localeDateConfig.langs.enUS, localeDateConfig.restDateConfig),
+          month = localeDateMonth.split(' ')[0];
+    
+    auxDate = localeDateMonth;
+    
+    return localeDateMonth.replace(month, localeDateConfig.langs[lang][month]);
+}
+
+
+currentMonth.textContent = changeMonthLang(date);
 today.setHours(0, 0, 0, 0);
 renderCalendar();
 
@@ -67,9 +77,11 @@ function renderCalendar() {
 
 document.querySelectorAll('.month-btn').forEach((element) => {
 	element.addEventListener('click', () => {
-		date = new Date(currentMonth.textContent);
+		date = new Date(auxDate);
         date.setMonth(date.getMonth() + (element.classList.contains('prev') ? -1 : 1));
-		currentMonth.textContent = date.toLocaleDateString(localeDateConfig.langs.enUS, localeDateConfig.restDateConfig);;
+
+		currentMonth.textContent = changeMonthLang(date);
+
 		renderCalendar();
 	});
 });
