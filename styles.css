@@ -3,6 +3,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -80,13 +81,22 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
   font-weight: 700;
 }
 
-.current-day {
-  background-color: rgb(112, 71, 235);
-  color: #f8f7fa;
+.current-day,
+.chosen-day {
   border-radius: 15px;
   font-weight: 700;
   transition: 0.5s;
   cursor: pointer;
+}
+
+.chosen-day { 
+  border: 1px solid rgb(37, 138, 111);
+  color: rgb(37, 138, 111);
+}
+
+.current-day {
+  background-color: rgb(112, 71, 235);
+  color: #f8f7fa;
 }
 
 .padding-day {
@@ -111,13 +121,6 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
   border-radius: 15px;
   background-color: rgb(112, 71, 235);
   color: #f8f7fa;
-}
-
-.goto-buttons {
-  border-top: 1px solid #efefef;
-  padding-block: 18px;
-  display: flex;
-  justify-content: space-evenly;
 }
 
 .btn {

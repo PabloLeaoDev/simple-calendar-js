@@ -66,7 +66,7 @@ function renderCalendar() {
             date.setDate(day);
             date.setHours(0, 0, 0, 0);
             
-            let dayClass = date.getTime() === today.getTime() ? 'current-day' : 'month-day';
+            let dayClass = date.getTime() === today.getTime() ? 'current-day month-day' : 'month-day';
             calendarDays.innerHTML += `<div class='${dayClass}'>${day}</div>`;
         } else {
             // adding next month days
@@ -83,5 +83,13 @@ document.querySelectorAll('.month-btn').forEach((element) => {
 		currentMonth.textContent = changeMonthLang(date);
 
 		renderCalendar();
+	});
+});
+
+document.querySelectorAll('.month-day').forEach((element) => {
+	element.addEventListener('click', () => {
+        !element.classList.contains('chosen-day') ?
+            element.classList.add('chosen-day') : element.classList.remove('chosen-day');
+            // there may be only one chosen day
 	});
 });
