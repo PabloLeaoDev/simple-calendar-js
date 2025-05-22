@@ -38,7 +38,7 @@ function changeMonthLang(date = new Date(), lang = 'ptBr') {
 currentMonth.textContent = changeMonthLang(date);
 today.setHours(0, 0, 0, 0);
 renderCalendar();
-updateCalendarListener();
+updateCalendarListener(date);
 
 function renderCalendar() {
     const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate(),
@@ -76,6 +76,18 @@ function renderCalendar() {
     }
 }
 
+function persistChosenDay(date, monthDays, sessionDate) {
+    const sessionDateArr = sessionDate.split(',');
+
+    for (let monthDay of monthDays) {
+        if (
+            (date.getFullYear() == sessionDateArr[0]) &&
+            (date.getMonth() == sessionDateArr[1]) &&
+            (monthDay.textContent == sessionDateArr[2])
+        ) monthDay.classList.add('chosen-day');
+    }
+}
+
 document.querySelectorAll('.month-btn').forEach((element) => {
 	element.addEventListener('click', () => {
 		date = new Date(auxDate);
@@ -84,26 +96,37 @@ document.querySelectorAll('.month-btn').forEach((element) => {
 		currentMonth.textContent = changeMonthLang(date);
 
 		renderCalendar();
-        updateCalendarListener();
+        updateCalendarListener(date);
 	});
 });
 
 function guaranteeOneChosenDay(monthDays, chosenDay) {
     for (let monthDay of monthDays) {
-        if (monthDay.classList.contains('chosen-day') && monthDay !== chosenDay) 
+        if (monthDay.classList.contains('chosen-day') && monthDay !== chosenDay) {
             monthDay.classList.remove('chosen-day');
+            break;
+        }
     }
 }
 
-function updateCalendarListener() {
+function updateCalendarListener(date) {
     const monthDays = document.querySelectorAll('.month-day');
-    
+
+    const sessionDate = sessionStorage.getItem('chosenDay');
+
+    if (sessionDate) persistChosenDay(date, monthDays, sessionDate);
+
     monthDays.forEach((element) => {
         element.addEventListener('click', () => {
             guaranteeOneChosenDay(monthDays, element);
 
-            !element.classList.contains('chosen-day') ?
-                element.classList.add('chosen-day') : element.classList.remove('chosen-day');
+            if (!element.classList.contains('chosen-day')) {
+                element.classList.add('chosen-day')
+                sessionStorage.setItem('chosenDay', [date.getFullYear(), date.getMonth(), Number(element.textContent)]);
+            } else {
+                element.classList.remove('chosen-day');
+                sessionStorage.removeItem('chosenDay');
+            }
         });
     });
 }
