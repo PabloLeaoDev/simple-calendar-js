@@ -38,6 +38,7 @@ function changeMonthLang(date = new Date(), lang = 'ptBr') {
 currentMonth.textContent = changeMonthLang(date);
 today.setHours(0, 0, 0, 0);
 renderCalendar();
+updateCalendarListener();
 
 function renderCalendar() {
     const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate(),
@@ -83,13 +84,26 @@ document.querySelectorAll('.month-btn').forEach((element) => {
 		currentMonth.textContent = changeMonthLang(date);
 
 		renderCalendar();
+        updateCalendarListener();
 	});
 });
 
-document.querySelectorAll('.month-day').forEach((element) => {
-	element.addEventListener('click', () => {
-        !element.classList.contains('chosen-day') ?
-            element.classList.add('chosen-day') : element.classList.remove('chosen-day');
-            // there may be only one chosen day
-	});
-});
+function guaranteeOneChosenDay(monthDays, chosenDay) {
+    for (let monthDay of monthDays) {
+        if (monthDay.classList.contains('chosen-day') && monthDay !== chosenDay) 
+            monthDay.classList.remove('chosen-day');
+    }
+}
+
+function updateCalendarListener() {
+    const monthDays = document.querySelectorAll('.month-day');
+    
+    monthDays.forEach((element) => {
+        element.addEventListener('click', () => {
+            guaranteeOneChosenDay(monthDays, element);
+
+            !element.classList.contains('chosen-day') ?
+                element.classList.add('chosen-day') : element.classList.remove('chosen-day');
+        });
+    });
+}
