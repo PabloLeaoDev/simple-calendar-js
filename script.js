@@ -34,12 +34,6 @@ function changeMonthLang(date = new Date(), lang = 'ptBr') {
     return localeDateMonth.replace(month, localeDateConfig.langs[lang][month]);
 }
 
-
-currentMonth.textContent = changeMonthLang(date);
-today.setHours(0, 0, 0, 0);
-renderCalendar();
-updateCalendarListener(date);
-
 function renderCalendar() {
     const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate(),
           totalMonthDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(),
@@ -88,18 +82,6 @@ function persistChosenDay(date, monthDays, sessionDate) {
     }
 }
 
-document.querySelectorAll('.month-btn').forEach((element) => {
-	element.addEventListener('click', () => {
-		date = new Date(auxDate);
-        date.setMonth(date.getMonth() + (element.classList.contains('prev') ? -1 : 1));
-
-		currentMonth.textContent = changeMonthLang(date);
-
-		renderCalendar();
-        updateCalendarListener(date);
-	});
-});
-
 function guaranteeOneChosenDay(monthDays, chosenDay) {
     for (let monthDay of monthDays) {
         if (monthDay.classList.contains('chosen-day') && monthDay !== chosenDay) {
@@ -130,3 +112,20 @@ function updateCalendarListener(date) {
         });
     });
 }
+
+currentMonth.textContent = changeMonthLang(date);
+today.setHours(0, 0, 0, 0);
+renderCalendar();
+updateCalendarListener(date);
+
+document.querySelectorAll('.month-btn').forEach((element) => {
+	element.addEventListener('click', () => {
+		date = new Date(auxDate);
+        date.setMonth(date.getMonth() + (element.classList.contains('prev') ? -1 : 1));
+
+		currentMonth.textContent = changeMonthLang(date);
+
+		renderCalendar();
+        updateCalendarListener(date);
+	});
+});
