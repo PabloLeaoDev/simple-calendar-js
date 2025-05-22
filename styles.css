@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
 
+:root {
+  --primary-color: #7CC7B9;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,8 +12,8 @@
 
 body {
   height: 100vh;
-  background: rgb(238,174,202);
-background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background: var(--primary-color);
+  background: radial-gradient(circle, var(--primary-color) 0%, #fff 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +24,7 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
 .card {
   width: 316px;
   height: fit-content;
-  background-color: #FFFFFF;
+  background-color: #fff;
   border-radius: 15px;
   box-shadow: 0px 0px 10px #efefef;
 }
@@ -90,15 +94,15 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
 }
 
 .chosen-day { 
-  border: 3px dashed rgb(37, 138, 111);
-  color: rgb(37, 138, 111);
+  border: 3px dashed var(--primary-color);
+  color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .current-day {
-  background-color: rgb(112, 71, 235);
+  background-color: var(--primary-color);
   color: #f8f7fa;
 }
 
@@ -107,22 +111,24 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
   user-select: none;
 }
 
+.chosen-day.current-day { border: 3px dashed #f8f7fa }
+
 .calendar-toolbar > [class$="month-btn"]:hover,
 .month-day:hover,
 .btn:hover {
   border-radius: 15px;
   background-color: #f8f7fa;
-  color: rgb(112, 71, 235);
+  color: var(--primary-color);
   transition: 0.1s;
   cursor: pointer;
-  box-shadow: inset 0px 0px 0px 1.5px rgb(112, 71, 235);
+  box-shadow: inset 0px 0px 0px 1.5px var(--primary-color);
 }
 
 .calendar-toolbar > [class$="month-btn"]:focus,
 .month-day:focus,
 .btn:focus {
   border-radius: 15px;
-  background-color: rgb(112, 71, 235);
+  background-color: var(--primary-color);
   color: #f8f7fa;
 }
 
