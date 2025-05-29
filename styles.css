@@ -113,23 +113,11 @@ body {
 
 .chosen-day.current-day { border: 3px dashed #f8f7fa }
 
-.calendar-toolbar > [class$="month-btn"]:hover,
-.month-day:hover,
-.btn:hover {
-  border-radius: 15px;
-  background-color: #f8f7fa;
-  color: var(--primary-color);
-  transition: 0.1s;
-  cursor: pointer;
-  box-shadow: inset 0px 0px 0px 1.5px var(--primary-color);
-}
-
-.calendar-toolbar > [class$="month-btn"]:focus,
-.month-day:focus,
-.btn:focus {
-  border-radius: 15px;
-  background-color: var(--primary-color);
-  color: #f8f7fa;
+.goto-btn {
+  border-top: 1px solid #efefef;
+  padding-block: 18px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .btn {
@@ -144,3 +132,27 @@ body {
   margin-right: 1px;
   box-shadow: 0px 0px 0px #efefef;
 }
+
+.btn.today { width: 90%; }
+
+.calendar-toolbar > [class$="month-btn"]:hover,
+.month-day:hover,
+.btn:hover {
+  border-radius: 15px;
+  background-color: #f8f7fa;
+  color: var(--primary-color);
+  transition: 0.1s;
+  cursor: pointer;
+  box-shadow: inset 0px 0px 0px 1.5px var(--primary-color);
+  fill: #fff;
+}
+
+.calendar-toolbar > [class$="month-btn"]:focus,
+.month-day:focus,
+.month-btn:focus {
+  border-radius: 15px;
+  background-color: var(--primary-color);
+  color: #f8f7fa;
+}
+
+.btn.today:hover { background-color: var(--primary-color); }

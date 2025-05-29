@@ -113,19 +113,39 @@ function updateCalendarListener(date) {
     });
 }
 
+function changeMonth(el) {
+    date = new Date(auxDate);
+    date.setMonth(date.getMonth() + (el.classList.contains('prev') ? -1 : 1));
+
+    currentMonth.textContent = changeMonthLang(date);
+
+    renderCalendar();
+    updateCalendarListener(date);
+}
+
+function goToToday() {
+    date = new Date();
+
+    currentMonth.textContent = changeMonthLang(date);
+
+    renderCalendar();
+    updateCalendarListener(date);
+}
+
 currentMonth.textContent = changeMonthLang(date);
 today.setHours(0, 0, 0, 0);
 renderCalendar();
 updateCalendarListener(date);
 
-document.querySelectorAll('.month-btn').forEach((element) => {
+document.querySelectorAll('.btn').forEach((element) => {
 	element.addEventListener('click', () => {
-		date = new Date(auxDate);
-        date.setMonth(date.getMonth() + (element.classList.contains('prev') ? -1 : 1));
+        const btnClass = element.classList;
 
-		currentMonth.textContent = changeMonthLang(date);
+        if (btnClass.contains('today')) {
+            goToToday();
+            return;
+        }
 
-		renderCalendar();
-        updateCalendarListener(date);
+		changeMonth(element);
 	});
 });
