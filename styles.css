@@ -93,15 +93,15 @@ body {
   cursor: pointer;
 }
 
-.chosen-day { 
-  border: 3px dashed var(--primary-color);
-  color: var(--primary-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.current-day {
+.current-day { 
+    border: 3px dashed var(--primary-color);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+.chosen-day {
   background-color: var(--primary-color);
   color: #f8f7fa;
 }
