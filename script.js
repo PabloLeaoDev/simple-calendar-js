@@ -113,8 +113,32 @@ function updateCalendarListener(date) {
     });
 }
 
+function browsersCompatibilityDate(date = 'January 2025') {
+    // This function is required to maintain compatibility between Chrome and Firefox
+    const dateArr = date.split(' '),
+            yy = dateArr[1],
+            monthKey = dateArr[0];
+
+    const months = {
+                January: '01',
+                February: '02',
+                March: '03',
+                April: '04',
+                May: '05',
+                June: '06',
+                July: '07',
+                August: '08',
+                September: '09',
+                October: '10',
+                November: '11',
+                December: '12'
+            } 
+
+    return new Date(`${months[monthKey]}/01/${yy}`);
+}
+
 function changeMonth(el) {
-    date = new Date(auxDate);
+    date = new Date(browsersCompatibilityDate(auxDate));
     date.setMonth(date.getMonth() + (el.classList.contains('prev') ? -1 : 1));
 
     currentMonth.textContent = changeMonthLang(date);
@@ -128,6 +152,9 @@ function goToToday() {
 
     currentMonth.textContent = changeMonthLang(date);
 
+    sessionStorage.setItem('chosenDay', `${date.getFullYear()},${date.getMonth()},${date.getDate()}`);
+
+    persistChosenDay(date, document.querySelectorAll('.month-day'), sessionStorage.getItem('chosenDay'));
     renderCalendar();
     updateCalendarListener(date);
 }
